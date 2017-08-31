@@ -4,11 +4,11 @@
 # Created on: 8/18/17
 
 suppressPackageStartupMessages(library("argparse"))
-suppressPackageStartupMessages(library("Scran"))
+suppressPackageStartupMessages(library("scran"))
 
 parser <- ArgumentParser()
 
-parser$add_argument("--counts", type="character", nargs=Inf)
+parser$add_argument("--counts", type="character", nargs='+')
 
 args <- parser$parse_args()
 
