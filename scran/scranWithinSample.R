@@ -1,5 +1,5 @@
-# Title     : TODO
-# Objective : TODO
+# Title     : scranWithinSample
+# Objective : Normalizes counts matrix using scran 1.4.5
 # Created by: brianyee
 # Created on: 8/18/17
 

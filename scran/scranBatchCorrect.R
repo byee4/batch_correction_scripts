@@ -1,5 +1,5 @@
-# Title     : TODO
-# Objective : This wraps the 'mnnCorrect' function of scran, taking
+# Title     : scranBatchCorrect
+# Objective : This wraps the 'mnnCorrect' function of scran 1.4.5, taking
 #             multiple expression matrices as separate batches and normalizing
 #             based on matching mutual nearest neighbors.
 # Article   : http://www.biorxiv.org/content/biorxiv/early/2017/07/18/165118.full.pdf
