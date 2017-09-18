@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-Rscript scranBatchCorrect.R \
---counts /home/bay001/projects/codebase/batch_correction/data/counts.tsv \
-/home/bay001/projects/codebase/batch_correction/data/counts.tsv \
-/home/bay001/projects/codebase/batch_correction/data/counts.tsv \
---outdir /home/bay001/projects/codebase/batch_correction/data/scran/
+# Rscript scranWithinSample.R \
+# --counts /home/bay001/projects/codebase/batch_correction/data/counts.tsv \
+# --outfile /home/bay001/projects/codebase/batch_correction/data/scranNormedCounts.tsv
+
+cwltool scranBatchCorrect.cwl scranBatchCorrect.yaml

@@ -19,9 +19,6 @@ def read_mtx_as_dataframe(mtx_file, genes_list, barcodes_list):
     """
     mat = scipy.io.mmread(mtx_file)
     df = pd.DataFrame(mat.todense(), columns=barcodes_list, index=genes_list)
-    # print(genes_list[:5])
-    # print(barcodes_list[:5])
-    # print(df.head())
     return df
 
 def filter_by_count(df, min_columns, min_count):
@@ -35,7 +32,7 @@ def filter_by_count(df, min_columns, min_count):
     :return df: pandas.DataFrame
     """
     num_columns = len(df.columns)
-    df = df.ix[df[df > min_count].isnull().sum(axis=1) < (num_columns - min_columns)]
+    df = df.ix[df[df >= min_count].isnull().sum(axis=1) < (num_columns - min_columns)]
     return df
 
 def create_new_genes_file(old_genes_file, df, new_genes_file):
@@ -85,17 +82,25 @@ def filter_by_names(df, names_list):
     :param names_list: list
     :return filtered_df: pandas.DataFrame
     """
+
     return df.ix[names_list]
 
-def filter_cellranger(mtx_file, genes_file, barcodes_file, names_file,
+def filter_cellranger(mtx_file, genes_file, barcodes_file,
+                      kept_genes_file, toss_genes_file,
                       min_columns, min_count,
                       new_mtx_file, new_genes_file, new_barcodes_file):
     """
-    main function.
 
     :param mtx_file: string
     :param genes_file: string
     :param barcodes_file: string
+    :param kept_genes_file: string
+    :param toss_genes_file: string
+    :param min_columns: int
+    :param min_count: int
+    :param new_mtx_file: string
+    :param new_genes_file: string
+    :param new_barcodes_file: string
     :return:
     """
 
@@ -110,12 +115,21 @@ def filter_cellranger(mtx_file, genes_file, barcodes_file, names_file,
     df = read_mtx_as_dataframe(
         mtx_file, gene_ids, barcodes
     )
-    if names_file is not None:
+
+    # If we want to subset our matrix using a list of genes
+    if kept_genes_file is not None:
         names_list = [row[0] for row in
-            csv.reader(open(names_file), delimiter="\t")
+            csv.reader(open(kept_genes_file), delimiter="\t")
         ]
     else:
         names_list = list(df.index)
+
+    # If we want to subset our matrix by removing genes
+    if toss_genes_file is not None:
+        toss_list = [row[0] for row in
+            csv.reader(open(toss_genes_file), delimiter="\t")
+        ]
+        names_list = list(set(names_list) - set(toss_list))
 
     print("dim: ", df.shape)
     dx = filter_by_names(df, names_list)
@@ -171,11 +185,18 @@ def main():
         help="output barcodes.filtered.tsv"
     )
     parser.add_argument(
-        "--names",
+        "--keep_genes_file",
         required=False,
         default=None,
-        help = "line-delimited names to filter (keep) in your matrix "
-               "(default: None, keep all names)"
+        help = "line-delimited genes to filter in (keep) in your matrix "
+               "(default: None, keep all genes)"
+    )
+    parser.add_argument(
+        "--toss_genes_file",
+        required=False,
+        default=None,
+        help="line-delimited genes to filter out (toss) in your matrix "
+             "(default: None, keep all genes)"
     )
     parser.add_argument(
         "--min_columns",
@@ -198,7 +219,8 @@ def main():
     mtx_file = args.mtx
     genes_file = args.genes
     barcodes_file = args.barcodes
-    names_file = args.names
+    keep_genes_file = args.keep_genes_file
+    toss_genes_file = args.toss_genes_file
     min_columns = args.min_columns
     min_count = args.min_count
     new_mtx_file = args.filtered_mtx
@@ -206,7 +228,7 @@ def main():
     new_barcodes_file = args.filtered_barcodes
 
     filter_cellranger(
-        mtx_file, genes_file, barcodes_file, names_file,
+        mtx_file, genes_file, barcodes_file, keep_genes_file, toss_genes_file,
         min_columns, min_count,
         new_mtx_file, new_genes_file, new_barcodes_file
     )

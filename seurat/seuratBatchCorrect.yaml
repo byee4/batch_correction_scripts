@@ -1,0 +1,15 @@
+counts:
+- class: File
+  path: /home/bay001/projects/codebase/batch_correction/data/IntegratedAnalysis_ExpressionMatrices/pbmc_SeqWell.expressionMatrix.txt
+- class: File
+  path: /home/bay001/projects/codebase/batch_correction/data/IntegratedAnalysis_ExpressionMatrices/pbmc_10X.expressionMatrix.txt
+
+outdir: /home/bay001/projects/codebase/batch_correction/seurat/data/
+
+normalize: true
+
+nGenes: 2000
+
+CCStart: 1
+
+CCEnd: 13

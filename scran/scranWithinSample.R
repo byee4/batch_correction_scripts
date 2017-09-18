@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 # Title     : scranWithinSample
 # Objective : Normalizes counts matrix using scran 1.4.5
 # Created by: brianyee
@@ -25,4 +27,4 @@ sce <- computeSumFactors(sce, clusters=clusters)
 print(summary(sizeFactors(sce)))
 sce <- normalize(sce)
 
-write.table(norm_exprs(sce), args$outfile, sep='\t')
+write.table(norm_exprs(sce), args$outfile, sep='\t', na = "0", quote = FALSE)

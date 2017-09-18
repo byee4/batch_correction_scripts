@@ -1,0 +1,29 @@
+mtx:
+  class: File
+  path: /projects/ps-yeolab3/jobs/cellranger/yan_takeda_tph1_colon/results/temp/YS_1/outs/filtered_gene_bc_matrices/mm10/matrix.mtx
+
+genes:
+  class: File
+  path: /projects/ps-yeolab3/jobs/cellranger/yan_takeda_tph1_colon/results/temp/YS_1/outs/filtered_gene_bc_matrices/mm10/genes.tsv
+
+barcodes:
+  class: File
+  path: /projects/ps-yeolab3/jobs/cellranger/yan_takeda_tph1_colon/results/temp/YS_1/outs/filtered_gene_bc_matrices/mm10/barcodes.tsv
+
+filtered_mtx: filtered.mtx
+
+filtered_genes: filtered.genes
+
+filtered_barcodes: filtered.barcodes
+
+min_columns: 0
+
+min_count: 0
+
+keep_genes:
+  class: File
+  path: /home/bay001/projects/codebase/batch_correction/data/filter/just_genes_lists_3.csv
+
+toss_genes:
+  class: File
+  path: /home/bay001/projects/codebase/batch_correction/data/filter/just_genes_lists_3_toss.csv

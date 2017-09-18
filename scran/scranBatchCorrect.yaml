@@ -1,0 +1,7 @@
+counts:
+- class: File
+  path: /home/bay001/projects/codebase/batch_correction/scran/data/pbmc_SeqWell.expressionMatrix.txt.normed.txt
+- class: File
+  path: /home/bay001/projects/codebase/batch_correction/scran/data/pbmc_10X.expressionMatrix.txt.normed.txt
+
+outdir: /home/bay001/projects/codebase/batch_correction/scran/data/

@@ -1,0 +1,5 @@
+counts:
+  class: File
+  path: /home/bay001/projects/codebase/batch_correction/data/IntegratedAnalysis_ExpressionMatrices/pbmc_SeqWell.expressionMatrix.txt
+
+outfile: pbmc_SeqWell.expressionMatrix.txt.normed.txt

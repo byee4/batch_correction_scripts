@@ -1,5 +1,5 @@
-# Title     : TODO
-# Objective : TODO
+# Title     : scnormMultipleConditions
+# Objective : Normalize multiple conditions with scnorm 0.99.7
 # Created by: brianyee
 # Created on: 8/18/17
 suppressPackageStartupMessages(library("argparse"))
