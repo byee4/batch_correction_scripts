@@ -1,0 +1,12 @@
+counts:
+- class: File
+  path: /home/bay001/projects/codebase/batch_correction/data/bladderEsetBatch1.txt
+- class: File
+  path: /home/bay001/projects/codebase/batch_correction/data/bladderEsetBatch2.txt
+- class: File
+  path: /home/bay001/projects/codebase/batch_correction/data/bladderEsetBatch3.txt
+- class: File
+  path: /home/bay001/projects/codebase/batch_correction/data/bladderEsetBatch4.txt
+- class: File
+  path: /home/bay001/projects/codebase/batch_correction/data/bladderEsetBatch5.txt
+outdir: /home/bay001/projects/codebase/batch_correction/combatsva/data/
