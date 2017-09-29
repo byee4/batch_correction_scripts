@@ -1,10 +1,18 @@
+#!/usr/bin/env cwltool
+
 cwlVersion: v1.0
 
 class: CommandLineTool
 
-baseCommand: [Rscript, /home/bay001/projects/codebase/batch_correction/scnorm/scnormWithinSample.R]
+baseCommand: []
 
 inputs:
+  algorithm:
+    type: File
+    inputBinding:
+      position: -1
+    label: "algorithm"
+    doc: "algorithm"
 
   counts:
     type: File
@@ -14,26 +22,18 @@ inputs:
     label: "input counts matrix file"
     doc: "input raw counts matrix with columns describing cells, rows describing genes"
 
-  outfile:
-    type: string
-    inputBinding:
-      position: 2
-      prefix: --outfile
-    label: "output tsv file"
-    doc: "output normalized expression file"
-
-  ditherCounts:
+  scnormDitherCounts:
     type: boolean
     inputBinding:
-      position: 3
+      position: 2
       prefix: --ditherCounts
     label: "output tsv file"
     doc: " expression file"
 
-  filterCellNum:
+  scnormFilterCellNum:
     type: int
     inputBinding:
-      position: 4
+      position: 3
       prefix: --filterCellNum
     label: " SCnorm only considers genes having at least this number of non-zero expression values"
 
@@ -41,8 +41,27 @@ outputs:
   output_file:
     type: File
     outputBinding:
-      glob: $(inputs.outfile)
+      glob: "$(inputs.counts.basename)-within-sample-normalization-*.tsv"
     label: "output"
     doc: "File containing output of scran normalize() function"
 
+  plot_s:
+    type: File[]
+    outputBinding:
+      glob: "*.pdf"
+    label: "output"
+    doc: "File containing PDF qc plots"
 
+  other_s:
+    type: File[]
+    outputBinding:
+      glob: "*.txt"
+    label: "output"
+    doc: "File containing other outputs from the scran normalize() function"
+
+  obj:
+    type: File[]
+    outputBinding:
+      glob: "*.Data"
+    label: "output"
+    doc: "File containing robject of scran normalize() function"

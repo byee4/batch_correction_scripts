@@ -7,61 +7,28 @@ class: CommandLineTool
 baseCommand: []
 
 inputs:
-
   algorithm:
     type: File
     inputBinding:
       position: -1
-    label: "runner for a specific algorithm"
+    label: "algorithm"
+    doc: "algorithm"
 
   counts:
-    type: File[]
+    type: File
     inputBinding:
       position: 1
       prefix: --counts
     label: "input counts matrix file"
     doc: "input raw counts matrix with columns describing cells, rows describing genes"
 
-  normalize:
-    type: boolean
-    inputBinding:
-      position: 2
-      prefix: --normalize
-    label: "output directory"
-    doc: "output directory where batch correction outputs go."
-
-  nGenes:
-    type: int
-    inputBinding:
-      position: 3
-      prefix: --nGenes
-    label: "output directory"
-    doc: "output directory where batch correction outputs go."
-
-  CCStart:
-    type: int
-    inputBinding:
-      position: 4
-      prefix: --CCStart
-    label: "CCA range start"
-    doc: "CC1"
-
-  CCEnd:
-    type: int
-    inputBinding:
-      position: 5
-      prefix: --CCEnd
-    label: "CCA range end"
-    doc: "CC13"
-
 outputs:
-
-  output_s:
-    type: File[]
+  output_file:
+    type: File
     outputBinding:
-      glob: "*normWithinGroup-*.tsv"
+      glob: "$(inputs.counts.basename)-within-sample-normalization-*.tsv"
     label: "output"
-    doc: "Files containing outputs of * normalize() function"
+    doc: "File containing output of * normalize() function"
 
   plot_s:
     type: File[]
@@ -77,7 +44,7 @@ outputs:
     label: "output"
     doc: "File containing other outputs from the * normalize() function"
 
-  obj_s:
+  obj:
     type: File[]
     outputBinding:
       glob: "*.Data"

@@ -26,9 +26,9 @@ outputs:
   output_file:
     type: File
     outputBinding:
-      glob: "$(inputs.counts.basename)-normWithinSample-*.tsv"
+      glob: "$(inputs.counts.basename)-outlierRemoved-*.tsv"
     label: "output"
-    doc: "File containing output of * normalize() function"
+    doc: "File containing output of scran normalize() function"
 
   plot_s:
     type: File[]
@@ -42,11 +42,11 @@ outputs:
     outputBinding:
       glob: "*.txt"
     label: "output"
-    doc: "File containing other outputs from the * normalize() function"
+    doc: "File containing other outputs from the scran normalize() function"
 
   obj:
     type: File[]
     outputBinding:
       glob: "*.Data"
     label: "output"
-    doc: "File containing robject of * normalize() function"
+    doc: "File containing robject of scran normalize() function"

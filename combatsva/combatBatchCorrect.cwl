@@ -1,11 +1,17 @@
+#!/usr/bin/env cwltool
+
 cwlVersion: v1.0
 
 class: CommandLineTool
 
-baseCommand: [Rscript, /home/bay001/projects/codebase/batch_correction/combatsva/combatBatchCorrect.R]
+baseCommand: []
 
 inputs:
-
+  algorithm:
+    type: File
+    inputBinding:
+      position: -1
+    label: "runner for a specific algorithm"
   counts:
     type: File[]
     inputBinding:
@@ -14,25 +20,32 @@ inputs:
     label: "input counts matrix file"
     doc: "input raw counts matrix with columns describing cells, rows describing genes"
 
-  outdir:
-    type: string
-    inputBinding:
-      position: 2
-      prefix: --outdir
-    label: "output directory"
-    doc: "output directory where batch correction outputs go."
-
 outputs:
 
-  output_file:
+  output_s:
     type: File[]
     outputBinding:
-      glob: "$(inputs.outdir)*.corrected2.tsv"
+      glob: "*normWithinGroup*.tsv"
     label: "output"
-    doc: "File containing output of sva ComBat() function"
+    doc: "Files containing outputs of * normalize() function"
 
-  # output_plot:
-  #   type: File
-  #   outputBinding:
-  #     glob: "$(inputs.outdir.basename)*pdf"
-  #   label: "output QC plot"
+  plot_s:
+    type: File[]
+    outputBinding:
+      glob: "*.pdf"
+    label: "output"
+    doc: "File containing PDF qc plots"
+
+  other_s:
+    type: File[]
+    outputBinding:
+      glob: "*.txt"
+    label: "output"
+    doc: "File containing other outputs from the * normalize() function"
+
+  obj_s:
+    type: File[]
+    outputBinding:
+      glob: "*.robj"
+    label: "output"
+    doc: "File containing robject of * normalize() function"

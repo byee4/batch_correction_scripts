@@ -1,10 +1,18 @@
+#!/usr/bin/env cwltool
+
 cwlVersion: v1.0
 
 class: CommandLineTool
 
-baseCommand: [Rscript, /home/bay001/projects/codebase/batch_correction/scran/scranWithinSample.R]
+baseCommand: []
 
 inputs:
+  algorithm:
+    type: File
+    inputBinding:
+      position: -1
+    label: "algorithm"
+    doc: "algorithm"
 
   counts:
     type: File
@@ -14,20 +22,31 @@ inputs:
     label: "input counts matrix file"
     doc: "input raw counts matrix with columns describing cells, rows describing genes"
 
-  outfile:
-    type: string
-    inputBinding:
-      position: 2
-      prefix: --outfile
-    label: "output tsv file"
-    doc: "output normalized expression file"
-
 outputs:
   output_file:
     type: File
     outputBinding:
-      glob: $(inputs.outfile)
+      glob: "$(inputs.counts.basename)-normWithinSample-*.tsv"
     label: "output"
     doc: "File containing output of scran normalize() function"
 
+  plot_s:
+    type: File[]
+    outputBinding:
+      glob: "*.pdf"
+    label: "output"
+    doc: "File containing PDF qc plots"
 
+  other_s:
+    type: File[]
+    outputBinding:
+      glob: "*.txt"
+    label: "output"
+    doc: "File containing other outputs from the scran normalize() function"
+
+  obj:
+    type: File[]
+    outputBinding:
+      glob: "*.Data"
+    label: "output"
+    doc: "File containing robject of scran normalize() function"

@@ -7,13 +7,11 @@ class: CommandLineTool
 baseCommand: []
 
 inputs:
-
   algorithm:
     type: File
     inputBinding:
       position: -1
     label: "runner for a specific algorithm"
-
   counts:
     type: File[]
     inputBinding:
@@ -22,46 +20,37 @@ inputs:
     label: "input counts matrix file"
     doc: "input raw counts matrix with columns describing cells, rows describing genes"
 
-  normalize:
+  conditions:
+    type: int[]
+    inputBinding:
+      position: 2
+      prefix: --conditions
+    label: "specifies which conditions go with each counts matrix."
+    doc: "specifies which conditions go with each counts matrix."
+
+  scnormDitherCounts:
     type: boolean
     inputBinding:
       position: 2
-      prefix: --normalize
-    label: "output directory"
-    doc: "output directory where batch correction outputs go."
+      prefix: --ditherCounts
+    label: "output tsv file"
+    doc: " expression file"
 
-  nGenes:
+  scnormFilterCellNum:
     type: int
     inputBinding:
       position: 3
-      prefix: --nGenes
-    label: "output directory"
-    doc: "output directory where batch correction outputs go."
-
-  CCStart:
-    type: int
-    inputBinding:
-      position: 4
-      prefix: --CCStart
-    label: "CCA range start"
-    doc: "CC1"
-
-  CCEnd:
-    type: int
-    inputBinding:
-      position: 5
-      prefix: --CCEnd
-    label: "CCA range end"
-    doc: "CC13"
+      prefix: --filterCellNum
+    label: " SCnorm only considers genes having at least this number of non-zero expression values"
 
 outputs:
 
   output_s:
     type: File[]
     outputBinding:
-      glob: "*normWithinGroup-*.tsv"
+      glob: "*between-conditions-normalization-*.tsv"
     label: "output"
-    doc: "Files containing outputs of * normalize() function"
+    doc: "Files containing outputs of scran normalize() function"
 
   plot_s:
     type: File[]
@@ -75,11 +64,11 @@ outputs:
     outputBinding:
       glob: "*.txt"
     label: "output"
-    doc: "File containing other outputs from the * normalize() function"
+    doc: "File containing other outputs from the scran normalize() function"
 
   obj_s:
     type: File[]
     outputBinding:
-      glob: "*.Data"
+      glob: "*.robj"
     label: "output"
-    doc: "File containing robject of * normalize() function"
+    doc: "File containing robject of scran normalize() function"

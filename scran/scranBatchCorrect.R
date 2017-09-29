@@ -14,12 +14,10 @@ suppressPackageStartupMessages(library("scran"))
 parser <- ArgumentParser()
 
 parser$add_argument("--counts", type="character", nargs='+')
-parser$add_argument("--outdir", type="character")
 args <- parser$parse_args()
 
 datas <- list()
 genes <- list()
-# batches <- list()
 
 batches <- 0
 # append each counts table as a separate batch
@@ -31,15 +29,26 @@ for (count in 1:length(args$counts)) {
     genes[[length(genes)+1]] <- rownames(countData)
 }
 
+# get an intersection of genes from each matrix (mnncorrect expects matrices to be same dimension)
 intersectingGenes <- Reduce(intersect, genes)
 
 for (i in 1:length(datas)) {
     datas[[i]] <- datas[[i]][intersectingGenes, ]
 }
 
-print("Performing batch correction using mnnCorrect.")
+# perform batch correction using all genes (TODO: use list of highly variable genes instead?)
 corrected <- do.call(mnnCorrect, datas)
-print("Writing to outdir.")
 for (count in 1:length(args$counts)) {
-    write.table(corrected$corrected[count], paste(args$outdir,paste0(basename(args$counts[count]),".corrected2"), sep="/"))
+    write.table(
+        corrected$corrected[count],
+        paste0(basename(args$counts[count]),"-normWithinGroup-scran.tsv"),
+        sep="\t",
+        quote=FALSE
+    )
 }
+
+# write other outputs
+write.table(
+    corrected$mnn,
+    "mnn-scran.tsv", sep="\t", quote=FALSE
+)

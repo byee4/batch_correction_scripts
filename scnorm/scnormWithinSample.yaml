@@ -1,9 +1,12 @@
+#!/usr/bin/env scnormWithinSample.cwl
+
+algorithm:
+  class: File
+  path: scnormWithinSample.R
 counts:
   class: File
-  path: /home/bay001/projects/codebase/batch_correction/data/IntegratedAnalysis_ExpressionMatrices/pbmc_SeqWell.expressionMatrix.txt
+  path: /home/bay001/projects/codebase/batch_correction/data/IntegratedAnalysis_ExpressionMatrices/pbmc_10X.expressionMatrix.txt
 
-outfile: pbmc_SeqWell.expressionMatrix.txt.normed.txt
+scnormDitherCounts: true
 
-ditherCounts: true
-
-filterCellNum: 10
+scnormFilterCellNum: 10

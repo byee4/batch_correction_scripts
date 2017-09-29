@@ -1,8 +1,8 @@
-#!/usr/bin/env scranWithinSample.cwl
+#!/usr/bin/env simpleOutlierRemoval.cwl
 
 algorithm:
   class: File
-  path: scranWithinSample.R
+  path: simpleOutlierRemoval.R
 
 counts:
   class: File

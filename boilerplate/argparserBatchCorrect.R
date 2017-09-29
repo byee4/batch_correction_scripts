@@ -4,7 +4,7 @@
 # Created on: 8/18/17
 
 suppressPackageStartupMessages(library("argparse"))
-suppressPackageStartupMessages(library("svaseq"))
+suppressPackageStartupMessages(library("ANYLIBRARY"))
 
 parser <- ArgumentParser()
 
@@ -28,13 +28,3 @@ dat <- Reduce(merge, lapply(datas, function(x) data.frame(x, rn = row.names(x)))
 rownames(dat) <- dat$rn
 dat$rn <- NULL
 print(dat[1:3,1:270])
-
-
-# create the model matrix
-# create the null matrix
-
-# call n.sv <- num.sv(countData,modelMatrix,method="leek")
-
-# call svaobj <- sva(countData,modelMatrix,nullMatrix,n.sv=n.sv)
-  # returns four components: sv, pprob.gam, pprob.b, n.sv
-#

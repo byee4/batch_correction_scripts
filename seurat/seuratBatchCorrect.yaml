@@ -1,12 +1,17 @@
+#!/usr/bin/env seuratBatchCorrect.cwl
+
+algorithm:
+  class: File
+  path: seuratBatchCorrect.R
+
 counts:
 - class: File
-  path: /home/bay001/projects/codebase/batch_correction/data/IntegratedAnalysis_ExpressionMatrices/pbmc_SeqWell.expressionMatrix.txt
+  path: /home/bay001/projects/codebase/batch_correction/data/IntegratedAnalysis_ExpressionMatrices/IntegratedAnalysis_ExpressionMatricesOutputs/pbmc_SeqWell.expressionMatrix.txt-within-sample-normalization-scran.tsv
 - class: File
-  path: /home/bay001/projects/codebase/batch_correction/data/IntegratedAnalysis_ExpressionMatrices/pbmc_10X.expressionMatrix.txt
+  path: /home/bay001/projects/codebase/batch_correction/data/IntegratedAnalysis_ExpressionMatrices/IntegratedAnalysis_ExpressionMatricesOutputs/pbmc_10X.expressionMatrix.txt-within-sample-normalization-seurat.tsv
 
-outdir: /home/bay001/projects/codebase/batch_correction/seurat/data/
-
-normalize: true
+# if we want to normalize (step1 + step2)
+normalize: false
 
 nGenes: 2000
 

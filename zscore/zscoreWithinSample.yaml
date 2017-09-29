@@ -1,5 +1,9 @@
+#!/usr/bin/env zscoreWithinSample.cwl
+
+algorithm:
+  class: File
+  path: zscoreWithinSample.R
+
 counts:
   class: File
   path: /home/bay001/projects/codebase/batch_correction/data/IntegratedAnalysis_ExpressionMatrices/pbmc_10X.expressionMatrix.txt
-
-outfile: pbmc_10X.expressionMatrix.txt.normed.txt

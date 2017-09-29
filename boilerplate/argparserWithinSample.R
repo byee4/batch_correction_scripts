@@ -1,9 +1,9 @@
 #!/usr/bin/env Rscript
 
-# Title     : scranWithinSample
-# Objective : Normalizes counts matrix using scran 1.4.5 (using scater::normalize)
+# Title     : boilerplate for Rscripts
+# Objective : use this as a template for argparsing stuff
 # Created by: brianyee
-# Created on: 8/18/17
+# Created on: 9/29/17
 
 suppressPackageStartupMessages(library("argparse"))
 suppressPackageStartupMessages(library("scran"))
@@ -24,12 +24,6 @@ sce <- computeSumFactors(sce, clusters=clusters)
 print(summary(sizeFactors(sce)))
 sce <- normalize(sce)
 
-# save the normalized counts
-write.table(
-    norm_exprs(sce),
-    file=paste0(basename(args$counts), "-normWithinSample-scran.tsv"),
-    sep='\t', na="0", quote=FALSE, row.names=TRUE, col.names=NA
-)
+y <- convertTo(sce, type="DESeq2")
 
-# save the Robject
-save(sce, file=paste0(basename(args$counts), "-sce-scran.Data"))
+save(y, file="DESEQ2.RData")
