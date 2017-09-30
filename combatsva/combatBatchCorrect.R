@@ -42,7 +42,7 @@ df <- data.frame(batches, row.names=colnames(dat))
 # mod <- model.matrix(~as.factor(batches), data=df)
 
 modcombat <- model.matrix(~1, data=df)
-pdf(paste0(basename(args$counts[b]), "-plotPrior-combat.pdf"))
+pdf("plotPrior-combat.pdf")
 combatEData <- ComBat(dat=dat, batch=batches, mod=modcombat, par.prior=TRUE, prior.plot=TRUE)
 dev.off()
 
